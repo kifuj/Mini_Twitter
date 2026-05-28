@@ -9,10 +9,14 @@
 
     <h1>Connexion</h1>
 
+    <?php if ($erreur): ?>
+        <p><?php echo htmlspecialchars($erreur); ?></p>
+    <?php endif; ?>
+
     <form method="POST" action="login.php">
 
         <label for="identifiant">Identifiant :</label><br>
-        <input type="text" id="identifiant" name="identifiant">
+        <input type="text" id="identifiant" name="identifiant" value="<?php echo htmlspecialchars($_POST['identifiant'] ?? ''); ?>">
         <br><br>
 
         <label for="mdp">Mot de passe :</label><br>
