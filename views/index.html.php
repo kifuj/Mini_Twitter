@@ -44,21 +44,78 @@
     <?php else: ?>
         <ul>
             <?php foreach ($derniers_tweets as $tweet): ?>
-                <li>
-                    <strong>
-                        <a href="controllers/profil.php?id=<?php echo $tweet['id_membre']; ?>">
-                            <?php echo htmlspecialchars($tweet['identifiant']); ?>
-                        </a>
-                    </strong>
-                    <br>
+                <?php foreach ($derniers_tweets as $tweet): ?>
 
-                    <?php echo nl2br(htmlspecialchars($tweet['contenu'])); ?>
+    <li class="tweet">
 
-                    <br>
-                    <small>
-                        <?php echo $tweet['date_tweet']; ?>
-                    </small>
-                </li>
+        <div class="tweet-left">
+
+            <?php if ($tweet['photo']): ?>
+
+                <img
+                    class="tweet-avatar"
+                    src="uploads/<?php echo htmlspecialchars($tweet['photo']); ?>"
+                >
+
+            <?php else: ?>
+
+                <div class="tweet-avatar default-avatar"></div>
+
+            <?php endif; ?>
+
+            <a
+                class="tweet-user"
+                href="controllers/profil.php?id=<?php echo $tweet['id_membre']; ?>"
+            >
+
+                <?php echo htmlspecialchars($tweet['identifiant']); ?>
+
+            </a>
+
+        </div>
+
+        <div class="tweet-right">
+
+            <p class="tweet-content">
+
+                <?php echo nl2br(htmlspecialchars($tweet['contenu'])); ?>
+
+            </p>
+
+            <small class="tweet-date">
+
+                <?php echo $tweet['date_tweet']; ?>
+
+            </small>
+
+            <br><br>
+
+            <?php if (isset($_SESSION['id_membre'])): ?>
+
+                <a
+                    class="btn-like"
+                    href="controllers/like.php?id_tweet=<?php echo $tweet['id_tweet']; ?>"
+                >
+
+                    ❤️ <?php echo $tweet['nb_likes']; ?>
+
+                </a>
+
+            <?php else: ?>
+
+                <span class="btn-like">
+
+                    ❤️ <?php echo $tweet['nb_likes']; ?>
+
+                </span>
+
+            <?php endif; ?>
+
+        </div>
+
+    </li>
+
+<?php endforeach; ?>
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>

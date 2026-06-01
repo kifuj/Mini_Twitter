@@ -88,3 +88,90 @@ p {
 label {
     font-weight: bold;
 }
+
+.btn-like {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 14px;
+
+    background-color: #ffebee;
+    color: #e53935;
+
+    border: 1px solid #e53935;
+    border-radius: 20px;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.btn-like:hover {
+    background-color: #e53935;
+    color: white;
+    text-decoration: none;
+}
+
+.tweet {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+
+    background-color: white;
+
+    border: 1px solid #ddd;
+    border-radius: 12px;
+
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.tweet-left {
+    width: 90px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+}
+
+.tweet-right {
+    flex: 1;
+}
+
+.tweet-avatar {
+    width: 60px;
+    height: 60px;
+
+    border-radius: 50%;
+    object-fit: cover;
+
+    border: 2px solid #ddd;
+
+    margin-bottom: 8px;
+}
+
+.default-avatar {
+    width: 60px;
+    height: 60px;
+
+    border-radius: 50%;
+
+    background-color: #ccc;
+
+    margin-bottom: 8px;
+}
+
+.tweet-user {
+    font-weight: bold;
+    color: #222;
+}
+
+.tweet-content {
+    margin-bottom: 10px;
+}
+
+.tweet-date {
+    color: #777;
+}

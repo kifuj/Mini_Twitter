@@ -13,14 +13,33 @@ $derniers_membres = $stmt->fetchAll();
 
 // Derniers tweets
     $stmt = $pdo->query('
-        SELECT tweet.contenu, tweet.date_tweet,
-                membre.id_membre, membre.identifiant
-        FROM tweet
-        JOIN membre ON tweet.id_membre = membre.id_membre
-        ORDER BY tweet.date_tweet DESC
-        LIMIT 5
-    ');
-    $derniers_tweets = $stmt->fetchAll();
+    SELECT
+        tweet.id_tweet,
+        tweet.contenu,
+        tweet.date_tweet,
+
+        membre.id_membre,
+        membre.identifiant,
+        membre.photo,
+
+        COUNT(like_tweet.id_like) AS nb_likes
+
+    FROM tweet
+
+    JOIN membre
+        ON tweet.id_membre = membre.id_membre
+
+    LEFT JOIN like_tweet
+        ON tweet.id_tweet = like_tweet.id_tweet
+
+    GROUP BY tweet.id_tweet
+
+    ORDER BY tweet.date_tweet DESC
+
+    LIMIT 5
+');
+
+$derniers_tweets = $stmt->fetchAll();
 
 
 include 'views/index.html.php';

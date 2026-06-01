@@ -37,6 +37,23 @@ CREATE TABLE IF NOT EXISTS tweet (
         ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
+-- --------------------------------------------
+-- Table : like tweet
+-- --------------------------------------------
+CREATE TABLE like_tweet (
+    id_like INT AUTO_INCREMENT PRIMARY KEY,
+    id_membre INT NOT NULL,
+    id_tweet INT NOT NULL,
+
+    UNIQUE(id_membre, id_tweet),
+
+    FOREIGN KEY (id_membre) REFERENCES membre(id_membre)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (id_tweet) REFERENCES tweet(id_tweet)
+        ON DELETE CASCADE
+);
+
 -- ============================================
 --  Données de test (optionnel)
 -- ============================================
