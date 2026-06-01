@@ -25,6 +25,4 @@
     <a href="register.php">Pas encore de compte ? S'inscrire</a> |
     <a href="../index.php">Retour a l'accueil</a>
 
-</body>
-
-</html>
+<?php include 'footer.php'; ?>

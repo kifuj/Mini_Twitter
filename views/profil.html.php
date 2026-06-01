@@ -117,6 +117,4 @@
         </ul>
     <?php endif; ?>
 
-</body>
-
-</html>
+<?php include 'footer.php'; ?>
