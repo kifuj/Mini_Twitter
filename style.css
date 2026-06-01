@@ -206,3 +206,37 @@ label {
     font-weight: bold;
     color: #222;
 }
+
+.btn-follow,
+.btn-unfollow {
+    display: inline-block;
+
+    padding: 10px 18px;
+    margin-top: 10px;
+
+    border-radius: 20px;
+
+    font-weight: bold;
+
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+.btn-follow {
+    background-color: #1d9bf0;
+    color: white;
+}
+
+.btn-follow:hover {
+    background-color: #0d8ae8;
+}
+
+.btn-unfollow {
+    background-color: #eee;
+    color: #222;
+}
+
+.btn-unfollow:hover {
+    background-color: #ddd;
+}

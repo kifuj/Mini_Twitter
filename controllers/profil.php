@@ -34,6 +34,63 @@ if (!$membre) {
 $est_proprietaire = isset($_SESSION['id_membre'])
     && $_SESSION['id_membre'] === $id_membre;
 
+
+/*
+|--------------------------------------------------------------------------
+| Verification follow
+|--------------------------------------------------------------------------
+*/
+
+$est_follow = false;
+
+if (isset($_SESSION['id_membre']) && !$est_proprietaire) {
+
+    $stmt = $pdo->prepare('
+        SELECT *
+        FROM follow
+        WHERE follower_id = ?
+          AND followed_id = ?
+    ');
+
+    $stmt->execute([
+        $_SESSION['id_membre'],
+        $id_membre
+    ]);
+
+    $est_follow = (bool) $stmt->fetch();
+}   
+
+/*
+|--------------------------------------------------------------------------
+| Nombre d'abonnes
+|--------------------------------------------------------------------------
+*/
+
+$stmt = $pdo->prepare('
+    SELECT COUNT(*)
+    FROM follow
+    WHERE followed_id = ?
+');
+
+$stmt->execute([$id_membre]);
+
+$nb_followers = $stmt->fetchColumn();
+
+/*
+|--------------------------------------------------------------------------
+| Nombre d'abonnements
+|--------------------------------------------------------------------------
+*/
+
+$stmt = $pdo->prepare('
+    SELECT COUNT(*)
+    FROM follow
+    WHERE follower_id = ?
+');
+
+$stmt->execute([$id_membre]);
+
+$nb_following = $stmt->fetchColumn();
 /*
 |--------------------------------------------------------------------------
 | Ajout d'un tweet

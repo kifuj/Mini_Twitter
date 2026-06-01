@@ -25,6 +25,28 @@
         <p>Pas de photo de profil.</p>
     <?php endif; ?>
 
+    <p>
+
+        👥 <?php echo $nb_followers; ?> abonne(s)
+        ·
+        <?php echo $nb_following; ?> abonnement(s)
+
+    </p>
+    <?php if (isset($_SESSION['id_membre']) && !$est_proprietaire): ?>
+
+        <a class="<?php echo $est_follow ? 'btn-unfollow' : 'btn-follow'; ?>"
+            href="follow.php?id=<?php echo $membre['id_membre']; ?>">
+
+            <?php if ($est_follow): ?>
+                Ne plus suivre
+            <?php else: ?>
+                Suivre
+            <?php endif; ?>
+
+        </a>
+
+    <?php endif; ?>
+
     <hr>
 
     <?php if ($est_proprietaire): ?>
