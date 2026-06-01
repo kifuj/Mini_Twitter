@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS tweet (
 -- --------------------------------------------
 -- Table : like tweet
 -- --------------------------------------------
-CREATE TABLE like_tweet (
+CREATE TABLE IF NOT EXISTS like_tweet (
     id_like INT AUTO_INCREMENT PRIMARY KEY,
     id_membre INT NOT NULL,
     id_tweet INT NOT NULL,
@@ -51,6 +51,26 @@ CREATE TABLE like_tweet (
         ON DELETE CASCADE,
 
     FOREIGN KEY (id_tweet) REFERENCES tweet(id_tweet)
+        ON DELETE CASCADE
+);
+
+-- --------------------------------------------
+-- Table : follow
+-- --------------------------------------------
+CREATE TABLE IF NOT EXISTS follow (
+    id_follow INT AUTO_INCREMENT PRIMARY KEY,
+
+    follower_id INT NOT NULL,
+    followed_id INT NOT NULL,
+
+    UNIQUE(follower_id, followed_id),
+
+    FOREIGN KEY (follower_id)
+        REFERENCES membre(id_membre)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (followed_id)
+        REFERENCES membre(id_membre)
         ON DELETE CASCADE
 );
 
