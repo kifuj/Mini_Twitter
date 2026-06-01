@@ -27,4 +27,6 @@
         <button type="submit">Valider</button>
     </form>
 
-<?php include 'footer.php'; ?>
+</body>
+
+</html>

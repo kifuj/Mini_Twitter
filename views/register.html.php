@@ -33,4 +33,6 @@
     <a href="login.php">Deja un compte ? Se connecter</a> |
     <a href="../index.php">Retour a l'accueil</a>
 
-<?php include 'footer.php'; ?>
+</body>
+
+</html>

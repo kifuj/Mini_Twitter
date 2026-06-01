@@ -122,4 +122,6 @@
         </ul>
     <?php endif; ?>
 
-<?php include 'footer.php'; ?>
+</body>
+
+</html>
