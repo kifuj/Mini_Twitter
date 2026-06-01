@@ -12,7 +12,7 @@ $erreur = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $identifiant = trim($_POST['identifiant'] ?? '');
-    $mdp         = trim($_POST['mdp'] ?? '');
+    $mdp = trim($_POST['mdp'] ?? '');
 
     if ($identifiant === '' || $mdp === '') {
         $erreur = 'Veuillez remplir tous les champs.';
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $membre = $stmt->fetch();
 
         if ($membre && password_verify($mdp, $membre['mdp'])) {
-            $_SESSION['id_membre']   = $membre['id_membre'];
+            $_SESSION['id_membre'] = $membre['id_membre'];
             $_SESSION['identifiant'] = $membre['identifiant'];
             header('Location: profil.php?id=' . $membre['id_membre']);
             exit;

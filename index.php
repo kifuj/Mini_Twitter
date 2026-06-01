@@ -8,11 +8,11 @@ $pdo = getConnexion();
 $total = $pdo->query('SELECT COUNT(*) FROM membre')->fetchColumn();
 
 // Récupérer les 4 derniers membres inscrits
-$stmt = $pdo->query('SELECT id_membre, identifiant FROM membre ORDER BY id_membre DESC LIMIT 4');
+$stmt = $pdo->query('SELECT id_membre, identifiant, photo FROM membre ORDER BY id_membre DESC LIMIT 4');
 $derniers_membres = $stmt->fetchAll();
 
 // Derniers tweets
-    $stmt = $pdo->query('
+$stmt = $pdo->query('
     SELECT
         tweet.id_tweet,
         tweet.contenu,

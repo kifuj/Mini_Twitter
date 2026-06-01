@@ -29,10 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($_FILES['photo']['size'] > 2 * 1024 * 1024) {
             $erreur = 'La photo ne doit pas depasser 2 Mo.';
         } else {
-            $dossier     = '../uploads/';
+            $dossier = '../uploads/';
             $nom_fichier = uniqid('photo_') . '.' . $extension;
 
-            if (!is_dir($dossier)) mkdir($dossier, 0755, true);
+            if (!is_dir($dossier))
+                mkdir($dossier, 0755, true);
 
             if ($membre['photo'] && file_exists($dossier . $membre['photo'])) {
                 unlink($dossier . $membre['photo']);

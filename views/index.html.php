@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Mini Twitter - Accueil</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <h1>Mini Twitter</h1>
@@ -21,17 +23,38 @@
     <?php if (empty($derniers_membres)): ?>
         <p>Aucun membre inscrit pour le moment.</p>
     <?php else: ?>
-        <ul>
+        <ul class="membres-liste">
+
             <?php foreach ($derniers_membres as $membre): ?>
-                <li>
+
+                <li class="membre-card">
+
                     <a href="controllers/profil.php?id=<?php echo $membre['id_membre']; ?>">
-                        <?php echo htmlspecialchars($membre['identifiant']); ?>
+
+                        <?php if ($membre['photo']): ?>
+
+                            <img class="membre-avatar" src="uploads/<?php echo htmlspecialchars($membre['photo']); ?>">
+
+                        <?php else: ?>
+
+                            <div class="membre-avatar default-avatar"></div>
+
+                        <?php endif; ?>
+
+                        <br>
+
+                        <span class="membre-nom">
+
+                            <?php echo htmlspecialchars($membre['identifiant']); ?>
+
+                        </span>
+
                     </a>
+
                 </li>
+
             <?php endforeach; ?>
-            <?php if ($total > 4): ?>
-                <li>...</li>
-            <?php endif; ?>
+
         </ul>
     <?php endif; ?>
 
@@ -44,84 +67,75 @@
     <?php else: ?>
         <ul>
             <?php foreach ($derniers_tweets as $tweet): ?>
-                <?php foreach ($derniers_tweets as $tweet): ?>
 
-    <li class="tweet">
+                <li class="tweet">
 
-        <div class="tweet-left">
+                    <div class="tweet-left">
 
-            <?php if ($tweet['photo']): ?>
+                        <?php if ($tweet['photo']): ?>
 
-                <img
-                    class="tweet-avatar"
-                    src="uploads/<?php echo htmlspecialchars($tweet['photo']); ?>"
-                >
+                            <img class="tweet-avatar" src="uploads/<?php echo htmlspecialchars($tweet['photo']); ?>">
 
-            <?php else: ?>
+                        <?php else: ?>
 
-                <div class="tweet-avatar default-avatar"></div>
+                            <div class="tweet-avatar default-avatar"></div>
 
-            <?php endif; ?>
+                        <?php endif; ?>
 
-            <a
-                class="tweet-user"
-                href="controllers/profil.php?id=<?php echo $tweet['id_membre']; ?>"
-            >
+                        <a class="tweet-user" href="controllers/profil.php?id=<?php echo $tweet['id_membre']; ?>">
 
-                <?php echo htmlspecialchars($tweet['identifiant']); ?>
+                            <?php echo htmlspecialchars($tweet['identifiant']); ?>
 
-            </a>
+                        </a>
 
-        </div>
+                    </div>
 
-        <div class="tweet-right">
+                    <div class="tweet-right">
 
-            <p class="tweet-content">
+                        <p class="tweet-content">
 
-                <?php echo nl2br(htmlspecialchars($tweet['contenu'])); ?>
+                            <?php echo nl2br(htmlspecialchars($tweet['contenu'])); ?>
 
-            </p>
+                        </p>
 
-            <small class="tweet-date">
+                        <small class="tweet-date">
 
-                <?php echo $tweet['date_tweet']; ?>
+                            <?php echo $tweet['date_tweet']; ?>
 
-            </small>
+                        </small>
 
-            <br><br>
+                        <br><br>
 
-            <?php if (isset($_SESSION['id_membre'])): ?>
+                        <?php if (isset($_SESSION['id_membre'])): ?>
 
-                <a
-                    class="btn-like"
-                    href="controllers/like.php?id_tweet=<?php echo $tweet['id_tweet']; ?>"
-                >
+                            <a class="btn-like" href="controllers/like.php?id_tweet=<?php echo $tweet['id_tweet']; ?>">
 
-                    ❤️ <?php echo $tweet['nb_likes']; ?>
+                                ❤️ <?php echo $tweet['nb_likes']; ?>
 
-                </a>
+                            </a>
 
-            <?php else: ?>
+                        <?php else: ?>
 
-                <span class="btn-like">
+                            <span class="btn-like">
 
-                    ❤️ <?php echo $tweet['nb_likes']; ?>
+                                ❤️ <?php echo $tweet['nb_likes']; ?>
 
-                </span>
+                            </span>
 
-            <?php endif; ?>
+                        <?php endif; ?>
 
-        </div>
+                    </div>
 
-    </li>
+                </li>
 
-<?php endforeach; ?>
             <?php endforeach; ?>
+
         </ul>
     <?php endif; ?>
 
     <?php if (isset($_SESSION['id_membre'])): ?>
-        <a href="controllers/profil.php?id=<?php echo $_SESSION['id_membre']; ?>">Mon profil (<?php echo htmlspecialchars($_SESSION['identifiant']); ?>)</a> |
+        <a href="controllers/profil.php?id=<?php echo $_SESSION['id_membre']; ?>">Mon profil
+            (<?php echo htmlspecialchars($_SESSION['identifiant']); ?>)</a> |
         <a href="controllers/logout.php">Se deconnecter</a>
     <?php else: ?>
         <a href="controllers/login.php">Se connecter</a> |
@@ -129,4 +143,5 @@
     <?php endif; ?>
 
 </body>
+
 </html>

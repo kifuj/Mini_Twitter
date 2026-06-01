@@ -14,7 +14,7 @@ if (!isset($_GET['id_tweet'])) {
 
 $pdo = getConnexion();
 
-$id_tweet  = (int) $_GET['id_tweet'];
+$id_tweet = (int) $_GET['id_tweet'];
 $id_membre = (int) $_SESSION['id_membre'];
 
 // Vérifier si déjà liké

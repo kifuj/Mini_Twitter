@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Profil de <?php echo htmlspecialchars($membre['identifiant']); ?></title>
     <link rel="stylesheet" href="../style.css">
 </head>
+
 <body>
 
     <a href="../index.php">Retour a l'accueil</a>
@@ -42,7 +44,8 @@
 
     <form method="GET">
         <input type="hidden" name="id" value="<?php echo $id_membre; ?>">
-        <input type="text" name="q" value="<?php echo htmlspecialchars($recherche); ?>" placeholder="Rechercher dans ses tweets...">
+        <input type="text" name="q" value="<?php echo htmlspecialchars($recherche); ?>"
+            placeholder="Rechercher dans ses tweets...">
         <button type="submit">Rechercher</button>
         <?php if ($recherche): ?>
             <a href="profil.php?id=<?php echo $id_membre; ?>">Effacer</a>
@@ -53,67 +56,59 @@
         <p>Resultats pour : "<?php echo htmlspecialchars($recherche); ?>"</p>
     <?php endif; ?>
 
-<?php if (empty($tweets)): ?>
-    <p>Aucun tweet trouve.</p>
-<?php else: ?>
-    <ul>
-        <?php foreach ($tweets as $tweet): ?>
-            <li class="tweet">
+    <?php if (empty($tweets)): ?>
+        <p>Aucun tweet trouve.</p>
+    <?php else: ?>
+        <ul>
+            <?php foreach ($tweets as $tweet): ?>
+                <li class="tweet">
 
-    <div class="tweet-left">
+                    <div class="tweet-left">
 
-        <?php if ($tweet['photo']): ?>
+                        <?php if ($tweet['photo']): ?>
 
-            <img
-                class="tweet-avatar"
-                src="../uploads/<?php echo htmlspecialchars($tweet['photo']); ?>"
-            >
+                            <img class="tweet-avatar" src="../uploads/<?php echo htmlspecialchars($tweet['photo']); ?>">
 
-        <?php else: ?>
+                        <?php else: ?>
 
-            <div class="tweet-avatar default-avatar"></div>
+                            <div class="tweet-avatar default-avatar"></div>
 
-        <?php endif; ?>
+                        <?php endif; ?>
 
-        <a
-            class="tweet-user"
-            href="profil.php?id=<?php echo $tweet['id_membre']; ?>"
-        >
-            <?php echo htmlspecialchars($tweet['identifiant']); ?>
-        </a>
+                        <a class="tweet-user" href="profil.php?id=<?php echo $tweet['id_membre']; ?>">
+                            <?php echo htmlspecialchars($tweet['identifiant']); ?>
+                        </a>
 
-    </div>
+                    </div>
 
-    <div class="tweet-right">
+                    <div class="tweet-right">
 
-        <p class="tweet-content">
-            <?php echo nl2br(htmlspecialchars($tweet['contenu'])); ?>
-        </p>
+                        <p class="tweet-content">
+                            <?php echo nl2br(htmlspecialchars($tweet['contenu'])); ?>
+                        </p>
 
-        <small class="tweet-date">
-            <?php echo $tweet['date_tweet']; ?>
-        </small>
+                        <small class="tweet-date">
+                            <?php echo $tweet['date_tweet']; ?>
+                        </small>
 
-        <br><br>
+                        <br><br>
 
-        <a
-            class="btn-like"
-            href="like.php?id_tweet=<?php echo $tweet['id_tweet']; ?>"
-        >
-            ❤️ <?php echo $tweet['nb_likes']; ?>
-        </a>
+                        <a class="btn-like" href="like.php?id_tweet=<?php echo $tweet['id_tweet']; ?>">
+                            ❤️ <?php echo $tweet['nb_likes']; ?>
+                        </a>
 
-    </div>
+                    </div>
 
-</li>
-        <?php endforeach; ?>
+                </li>
+            <?php endforeach; ?>
 
-        <?php if ($total_tweets > 4): ?>
-            <li>...</li>
-        <?php endif; ?>
+            <?php if ($total_tweets > 4): ?>
+                <li>...</li>
+            <?php endif; ?>
 
-    </ul>
-<?php endif; ?>
+        </ul>
+    <?php endif; ?>
 
 </body>
+
 </html>

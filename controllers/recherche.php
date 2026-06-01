@@ -4,8 +4,8 @@ require_once '../connexion.php';
 $pdo = getConnexion();
 
 $recherche = trim($_GET['q'] ?? '');
-$membres   = [];
-$tweets    = [];
+$membres = [];
+$tweets = [];
 
 if ($recherche !== '') {
     $stmt = $pdo->prepare('SELECT id_membre, identifiant, photo FROM membre WHERE identifiant LIKE ?');

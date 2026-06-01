@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Connexion - Mini Twitter</title>
     <link rel="stylesheet" href="../style.css">
 </head>
+
 <body>
 
     <h1>Connexion</h1>
@@ -16,7 +18,8 @@
     <form method="POST" action="login.php">
 
         <label for="identifiant">Identifiant :</label><br>
-        <input type="text" id="identifiant" name="identifiant" value="<?php echo htmlspecialchars($_POST['identifiant'] ?? ''); ?>">
+        <input type="text" id="identifiant" name="identifiant"
+            value="<?php echo htmlspecialchars($_POST['identifiant'] ?? ''); ?>">
         <br><br>
 
         <label for="mdp">Mot de passe :</label><br>
@@ -32,4 +35,5 @@
     <a href="../index.php">Retour a l'accueil</a>
 
 </body>
+
 </html>

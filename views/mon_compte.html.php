@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Mon compte - Mini Twitter</title>
     <link rel="stylesheet" href="../style.css">
 </head>
+
 <body>
 
     <a href="profil.php?id=<?php echo $id_membre; ?>">Retour a mon profil</a> |
@@ -37,4 +39,5 @@
     </form>
 
 </body>
+
 </html>

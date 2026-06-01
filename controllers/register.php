@@ -12,9 +12,9 @@ $erreur = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $identifiant = trim($_POST['identifiant'] ?? '');
-    $mdp         = trim($_POST['mdp'] ?? '');
+    $mdp = trim($_POST['mdp'] ?? '');
     $mdp_confirm = trim($_POST['mdp_confirm'] ?? '');
-    $photo       = null;
+    $photo = null;
 
     if ($identifiant === '' || $mdp === '' || $mdp_confirm === '') {
         $erreur = 'Veuillez remplir tous les champs obligatoires.';
@@ -40,7 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } else {
                     $nom_fichier = uniqid('photo_') . '.' . $extension;
                     $dossier = '../uploads/';
-                    if (!is_dir($dossier)) mkdir($dossier, 0755, true);
+                    if (!is_dir($dossier))
+                        mkdir($dossier, 0755, true);
                     move_uploaded_file($_FILES['photo']['tmp_name'], $dossier . $nom_fichier);
                     $photo = $nom_fichier;
                 }
@@ -51,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt = $pdo->prepare('INSERT INTO membre (identifiant, mdp, photo) VALUES (?, ?, ?)');
                 $stmt->execute([$identifiant, $mdp_hash, $photo]);
                 $id_nouveau = $pdo->lastInsertId();
-                $_SESSION['id_membre']   = (int) $id_nouveau;
+                $_SESSION['id_membre'] = (int) $id_nouveau;
                 $_SESSION['identifiant'] = $identifiant;
                 header('Location: profil.php?id=' . $id_nouveau);
                 exit;

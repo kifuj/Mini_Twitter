@@ -11,7 +11,8 @@ body {
     padding: 20px;
 }
 
-h1, h2 {
+h1,
+h2 {
     margin-bottom: 10px;
 }
 
@@ -174,4 +175,34 @@ label {
 
 .tweet-date {
     color: #777;
+}
+
+.membres-liste {
+    display: flex;
+    gap: 20px;
+
+    list-style: none;
+    padding: 0;
+}
+
+.membre-card {
+    text-align: center;
+}
+
+.membre-avatar {
+    width: 70px;
+    height: 70px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 2px solid #ddd;
+
+    margin-bottom: 8px;
+}
+
+.membre-nom {
+    font-weight: bold;
+    color: #222;
 }

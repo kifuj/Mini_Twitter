@@ -2,13 +2,14 @@
 
 require_once 'config.php';
 
-function getConnexion(): PDO {
+function getConnexion(): PDO
+{
     $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET;
 
     $options = [
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,  // lève une exception en cas d'erreur
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,  // lève une exception en cas d'erreur
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,        // retourne des tableaux associatifs
-        PDO::ATTR_EMULATE_PREPARES   => false,                   // requêtes préparées natives
+        PDO::ATTR_EMULATE_PREPARES => false,                   // requêtes préparées natives
     ];
 
     try {
