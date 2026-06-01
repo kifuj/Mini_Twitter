@@ -37,6 +37,32 @@
 
     <hr>
 
+    <h2>Derniers tweets</h2>
+
+    <?php if (empty($derniers_tweets)): ?>
+        <p>Aucun tweet pour le moment.</p>
+    <?php else: ?>
+        <ul>
+            <?php foreach ($derniers_tweets as $tweet): ?>
+                <li>
+                    <strong>
+                        <a href="controllers/profil.php?id=<?php echo $tweet['id_membre']; ?>">
+                            <?php echo htmlspecialchars($tweet['identifiant']); ?>
+                        </a>
+                    </strong>
+                    <br>
+
+                    <?php echo nl2br(htmlspecialchars($tweet['contenu'])); ?>
+
+                    <br>
+                    <small>
+                        <?php echo $tweet['date_tweet']; ?>
+                    </small>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
     <?php if (isset($_SESSION['id_membre'])): ?>
         <a href="controllers/profil.php?id=<?php echo $_SESSION['id_membre']; ?>">Mon profil (<?php echo htmlspecialchars($_SESSION['identifiant']); ?>)</a> |
         <a href="controllers/logout.php">Se deconnecter</a>
