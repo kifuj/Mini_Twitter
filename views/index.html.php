@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Mini Twitter - Accueil</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-    <h1>Mini Twitter</h1>
+<?php include 'header.php'; ?>
 
     <form action="controllers/recherche.php" method="GET">
         <input type="text" name="q" placeholder="Rechercher un membre...">
@@ -131,15 +120,6 @@
             <?php endforeach; ?>
 
         </ul>
-    <?php endif; ?>
-
-    <?php if (isset($_SESSION['id_membre'])): ?>
-        <a href="controllers/profil.php?id=<?php echo $_SESSION['id_membre']; ?>">Mon profil
-            (<?php echo htmlspecialchars($_SESSION['identifiant']); ?>)</a> |
-        <a href="controllers/logout.php">Se deconnecter</a>
-    <?php else: ?>
-        <a href="controllers/login.php">Se connecter</a> |
-        <a href="controllers/register.php">S'inscrire</a>
     <?php endif; ?>
 
 </body>

@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Recherche - Mini Twitter</title>
-    <link rel="stylesheet" href="../style.css">
-</head>
-
-<body>
-
-    <?php session_start(); ?>
-
-    <a href="../index.php">Retour a l'accueil</a>
+<?php include 'header.php'; ?>
 
     <h1>Recherche</h1>
 

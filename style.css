@@ -240,3 +240,51 @@ label {
 .btn-unfollow:hover {
     background-color: #ddd;
 }
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 25px;
+    margin-bottom: 25px;
+
+    background-color: white;
+
+    border-bottom: 1px solid #ddd;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 1000;
+}
+
+.topbar-right {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-btn {
+    padding: 10px 16px;
+
+    border-radius: 20px;
+
+    background-color: #1d9bf0;
+    color: white;
+
+    font-weight: bold;
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+.nav-btn:hover {
+    background-color: #0d8ae8;
+}
+
+.logout-btn {
+    background-color: #ef5350;
+}
+
+.logout-btn:hover {
+    background-color: #e53935;
+}

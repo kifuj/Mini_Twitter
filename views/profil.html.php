@@ -1,19 +1,5 @@
-<!DOCTYPE html>
-<html lang="fr">
+<?php include 'header.php'; ?>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Profil de <?php echo htmlspecialchars($membre['identifiant']); ?></title>
-    <link rel="stylesheet" href="../style.css">
-</head>
-
-<body>
-
-    <a href="../index.php">Retour a l'accueil</a>
-    <?php if ($est_proprietaire): ?>
-        | <a href="mon_compte.php">Mon compte</a>
-        | <a href="logout.php">Se deconnecter</a>
-    <?php endif; ?>
 
     <hr>
 

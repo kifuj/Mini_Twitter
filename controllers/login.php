@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($membre && password_verify($mdp, $membre['mdp'])) {
             $_SESSION['id_membre'] = $membre['id_membre'];
             $_SESSION['identifiant'] = $membre['identifiant'];
-            header('Location: profil.php?id=' . $membre['id_membre']);
+            header('Location: feed.php');
             exit;
         } else {
             $erreur = 'Identifiant ou mot de passe incorrect.';

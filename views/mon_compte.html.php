@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html lang="fr">
+<?php include 'header.php'; ?>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Mon compte - Mini Twitter</title>
-    <link rel="stylesheet" href="../style.css">
-</head>
-
-<body>
-
-    <a href="profil.php?id=<?php echo $id_membre; ?>">Retour a mon profil</a> |
-    <a href="../index.php">Retour a l'accueil</a>
 
     <h1>Mon compte</h1>
 
