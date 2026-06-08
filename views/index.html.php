@@ -82,9 +82,7 @@
                     <div class="tweet-right">
 
                         <p class="tweet-content">
-
-                            <?php echo nl2br(htmlspecialchars($tweet['contenu'])); ?>
-
+                            <?php echo formaterTweet($tweet['contenu']); ?>
                         </p>
 
                         <small class="tweet-date">

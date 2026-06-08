@@ -1,5 +1,6 @@
 <?php
 require_once 'connexion.php';
+require_once 'helpers.php';
 session_start();
 
 $pdo = getConnexion();
