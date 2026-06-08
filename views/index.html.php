@@ -1,6 +1,6 @@
 <?php include 'header.php'; ?>
 
-    <form action="controllers/recherche.php" method="GET">
+    <form action="/controllers/recherche.php" method="GET">
         <input type="text" name="q" placeholder="Rechercher un membre...">
         <button type="submit">Rechercher</button>
     </form>
@@ -18,7 +18,7 @@
 
                 <li class="membre-card">
 
-                    <a href="controllers/profil.php?id=<?php echo $membre['id_membre']; ?>">
+                    <a href="/controllers/profil.php?id=<?php echo $membre['id_membre']; ?>">
 
                         <?php if ($membre['photo']): ?>
 
@@ -71,7 +71,7 @@
 
                         <?php endif; ?>
 
-                        <a class="tweet-user" href="controllers/profil.php?id=<?php echo $tweet['id_membre']; ?>">
+                        <a class="tweet-user" href="/controllers/profil.php?id=<?php echo $tweet['id_membre']; ?>">
 
                             <?php echo htmlspecialchars($tweet['identifiant']); ?>
 
@@ -97,7 +97,7 @@
 
                         <?php if (isset($_SESSION['id_membre'])): ?>
 
-                            <a class="btn-like" href="controllers/like.php?id_tweet=<?php echo $tweet['id_tweet']; ?>">
+                            <a class="btn-like" href="/controllers/like.php?id_tweet=<?php echo $tweet['id_tweet']; ?>">
 
                                 ❤️ <?php echo $tweet['nb_likes']; ?>
 
@@ -122,6 +122,4 @@
         </ul>
     <?php endif; ?>
 
-</body>
-
-</html>
+<?php include 'footer.php'; ?>

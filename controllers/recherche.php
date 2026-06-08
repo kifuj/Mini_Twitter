@@ -1,5 +1,6 @@
 <?php
 require_once '../connexion.php';
+session_start();
 
 $pdo = getConnexion();
 
@@ -22,7 +23,15 @@ if ($recherche !== '') {
         membre.identifiant,
         membre.photo,
 
-        COUNT(like_tweet.id_like) AS nb_likes
+        COUNT(DISTINCT like_tweet.id_like) AS nb_likes,
+
+        MAX(
+            CASE
+            WHEN like_tweet.id_membre = ?
+            THEN 1
+            ELSE 0
+        END
+        ) AS deja_like
 
     FROM tweet
 
@@ -38,8 +47,10 @@ if ($recherche !== '') {
 
     ORDER BY tweet.date_tweet DESC
 ');
-    $stmt->execute(['%' . $recherche . '%']);
-    $tweets = $stmt->fetchAll();
+    $stmt->execute([
+    $_SESSION['id_membre'] ?? 0,
+    '%' . $recherche . '%'
+]);
 }
 
 include '../views/recherche.html.php';

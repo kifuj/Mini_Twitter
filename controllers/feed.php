@@ -12,11 +12,6 @@ $pdo = getConnexion();
 
 $id_membre = $_SESSION['id_membre'];
 
-/*
-|--------------------------------------------------------------------------
-| Recuperation du feed
-|--------------------------------------------------------------------------
-*/
 
 
 $stmt = $pdo->prepare('
@@ -29,7 +24,15 @@ $stmt = $pdo->prepare('
         membre.identifiant,
         membre.photo,
 
-        COUNT(like_tweet.id_like) AS nb_likes
+        COUNT(like_tweet.id_like) AS nb_likes,
+
+        MAX(
+            CASE
+            WHEN like_tweet.id_membre = ?
+            THEN 1
+            ELSE 0
+        END
+        ) AS deja_like
 
     FROM tweet
 
@@ -54,6 +57,7 @@ $stmt = $pdo->prepare('
 ');
 
 $stmt->execute([
+    $_SESSION['id_membre'],
     $id_membre,
     $id_membre
 ]);

@@ -10,11 +10,7 @@ if (!isset($_GET['id'])) {
 
 $id_membre = (int) $_GET['id'];
 
-/*
-|--------------------------------------------------------------------------
-| Recuperation du membre
-|--------------------------------------------------------------------------
-*/
+
 
 $stmt = $pdo->prepare('SELECT * FROM membre WHERE id_membre = ?');
 $stmt->execute([$id_membre]);
@@ -25,21 +21,10 @@ if (!$membre) {
     die('Membre introuvable.');
 }
 
-/*
-|--------------------------------------------------------------------------
-| Verification proprietaire du profil
-|--------------------------------------------------------------------------
-*/
 
 $est_proprietaire = isset($_SESSION['id_membre'])
     && $_SESSION['id_membre'] === $id_membre;
 
-
-/*
-|--------------------------------------------------------------------------
-| Verification follow
-|--------------------------------------------------------------------------
-*/
 
 $est_follow = false;
 
@@ -60,11 +45,6 @@ if (isset($_SESSION['id_membre']) && !$est_proprietaire) {
     $est_follow = (bool) $stmt->fetch();
 }   
 
-/*
-|--------------------------------------------------------------------------
-| Nombre d'abonnes
-|--------------------------------------------------------------------------
-*/
 
 $stmt = $pdo->prepare('
     SELECT COUNT(*)
@@ -76,11 +56,6 @@ $stmt->execute([$id_membre]);
 
 $nb_followers = $stmt->fetchColumn();
 
-/*
-|--------------------------------------------------------------------------
-| Nombre d'abonnements
-|--------------------------------------------------------------------------
-*/
 
 $stmt = $pdo->prepare('
     SELECT COUNT(*)
@@ -91,11 +66,6 @@ $stmt = $pdo->prepare('
 $stmt->execute([$id_membre]);
 
 $nb_following = $stmt->fetchColumn();
-/*
-|--------------------------------------------------------------------------
-| Ajout d'un tweet
-|--------------------------------------------------------------------------
-*/
 
 $erreur_tweet = '';
 
@@ -125,19 +95,9 @@ if ($est_proprietaire && isset($_POST['contenu'])) {
     }
 }
 
-/*
-|--------------------------------------------------------------------------
-| Recherche
-|--------------------------------------------------------------------------
-*/
 
 $recherche = trim($_GET['q'] ?? '');
 
-/*
-|--------------------------------------------------------------------------
-| Nombre total de tweets
-|--------------------------------------------------------------------------
-*/
 
 $stmt_count = $pdo->prepare(
     'SELECT COUNT(*) FROM tweet WHERE id_membre = ?'
@@ -173,7 +133,15 @@ if ($recherche !== '') {
             membre.identifiant,
             membre.photo,
 
-            COUNT(like_tweet.id_like) AS nb_likes
+            COUNT(DISTINCT like_tweet.id_like) AS nb_likes,
+
+MAX(
+    CASE
+        WHEN like_tweet.id_membre = ?
+        THEN 1
+        ELSE 0
+    END
+) AS deja_like
 
         FROM tweet
 
@@ -194,6 +162,7 @@ if ($recherche !== '') {
     ');
 
     $stmt->execute([
+        $_SESSION['id_membre'] ?? 0,
         $id_membre,
         '%' . $recherche . '%'
     ]);
@@ -207,7 +176,15 @@ if ($recherche !== '') {
             membre.identifiant,
             membre.photo,
 
-            COUNT(like_tweet.id_like) AS nb_likes
+            COUNT(DISTINCT like_tweet.id_like) AS nb_likes,
+
+            MAX(
+                CASE
+                WHEN like_tweet.id_membre = ?
+                THEN 1
+                ELSE 0
+            END
+            ) AS deja_like
 
         FROM tweet
 
@@ -226,14 +203,13 @@ if ($recherche !== '') {
         LIMIT 4
     ');
 
-    $stmt->execute([$id_membre]);
+    $stmt->execute([
+    $_SESSION['id_membre'] ?? 0,
+    $id_membre
+    ]);
 }
 
 $tweets = $stmt->fetchAll();
-/*
-|--------------------------------------------------------------------------
-| Vue
-|--------------------------------------------------------------------------
-*/
+
 
 include '../views/profil.html.php';

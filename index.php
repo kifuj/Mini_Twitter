@@ -8,11 +8,11 @@ $pdo = getConnexion();
 $total = $pdo->query('SELECT COUNT(*) FROM membre')->fetchColumn();
 
 // Récupérer les 4 derniers membres inscrits
-$stmt = $pdo->query('SELECT id_membre, identifiant, photo FROM membre ORDER BY id_membre DESC LIMIT 4');
+$stmt = $pdo->query('SELECT id_membre, identifiant, photo FROM membre ORDER BY id_membre DESC LIMIT 8');
 $derniers_membres = $stmt->fetchAll();
 
 // Derniers tweets
-$stmt = $pdo->query('
+$stmt = $pdo->prepare('
     SELECT
         tweet.id_tweet,
         tweet.contenu,
@@ -22,7 +22,15 @@ $stmt = $pdo->query('
         membre.identifiant,
         membre.photo,
 
-        COUNT(like_tweet.id_like) AS nb_likes
+        COUNT(DISTINCT like_tweet.id_like) AS nb_likes,
+
+        MAX(
+            CASE
+                WHEN like_tweet.id_membre = ?
+                THEN 1
+                ELSE 0
+            END
+        ) AS deja_like
 
     FROM tweet
 
@@ -38,6 +46,10 @@ $stmt = $pdo->query('
 
     LIMIT 5
 ');
+
+$stmt->execute([
+    $_SESSION['id_membre'] ?? 0
+]);
 
 $derniers_tweets = $stmt->fetchAll();
 
