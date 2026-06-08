@@ -26,8 +26,9 @@ CREATE TABLE IF NOT EXISTS membre (
 -- --------------------------------------------
 CREATE TABLE IF NOT EXISTS tweet (
     id_tweet    INT             NOT NULL AUTO_INCREMENT,
-    contenu     VARCHAR(280)    NOT NULL,          -- limite classique d'un tweet
+    contenu     TEXT   NOT NULL,          -- limite classique d'un tweet
     date_tweet  DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    image       VARCHAR(255)    DEFAULT NULL AFTER contenu,
     id_membre   INT             NOT NULL,          -- clé étrangère vers membre
     PRIMARY KEY (id_tweet),
     CONSTRAINT fk_tweet_membre
