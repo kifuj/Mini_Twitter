@@ -1,5 +1,6 @@
 <?php
 require_once '../connexion.php';
+require_once '../helpers.php';
 session_start();
 
 $pdo = getConnexion();
@@ -83,15 +84,38 @@ if ($est_proprietaire && isset($_POST['contenu'])) {
 
     } else {
 
-        $stmt = $pdo->prepare('
-            INSERT INTO tweet (contenu, id_membre)
-            VALUES (?, ?)
-        ');
+        $image_tweet = null;
 
-        $stmt->execute([$contenu, $id_membre]);
+        // Gestion de l'image jointe
+        if (!empty($_FILES['image_tweet']['name'])) {
+            $ext = strtolower(pathinfo($_FILES['image_tweet']['name'], PATHINFO_EXTENSION));
+            $exts_ok = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
-        header('Location: profil.php?id=' . $id_membre);
-        exit;
+            if (!in_array($ext, $exts_ok)) {
+                $erreur_tweet = 'Format image non autorisé (jpg, png, gif, webp).';
+            } elseif ($_FILES['image_tweet']['size'] > 5 * 1024 * 1024) {
+                $erreur_tweet = 'L\'image ne doit pas dépasser 5 Mo.';
+            } else {
+                $dossier = '../uploads/';
+                if (!is_dir($dossier)) mkdir($dossier, 0755, true);
+                $nom_fichier = uniqid('tweet_') . '.' . $ext;
+                move_uploaded_file($_FILES['image_tweet']['tmp_name'], $dossier . $nom_fichier);
+                $image_tweet = $nom_fichier;
+            }
+        }
+
+        if ($erreur_tweet === '') {
+
+            $stmt = $pdo->prepare('
+                INSERT INTO tweet (contenu, image, id_membre)
+                VALUES (?, ?, ?)
+            ');
+
+            $stmt->execute([$contenu, $image_tweet, $id_membre]);
+
+            header('Location: profil.php?id=' . $id_membre);
+            exit;
+        }
     }
 }
 

@@ -288,3 +288,117 @@ label {
 .logout-btn:hover {
     background-color: #e53935;
 }
+/* ── Éditeur de tweet ── */
+.tweet-form {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.editor-toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.editor-toolbar button {
+    padding: 4px 10px;
+    background: #f0f0f0;
+    color: #222;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.editor-toolbar button:hover {
+    background: #ddd;
+}
+
+#tweet-editor {
+    width: 100%;
+    min-height: 80px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 15px;
+    resize: vertical;
+}
+
+.editor-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.btn-upload {
+    cursor: pointer;
+    color: #1d9bf0;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.btn-upload:hover {
+    text-decoration: underline;
+}
+
+#char-count {
+    font-size: 13px;
+    color: #888;
+}
+
+/* Picker d'emojis */
+.emoji-picker {
+    flex-wrap: wrap;
+    gap: 6px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 8px;
+    max-width: 320px;
+}
+
+.emoji-picker span {
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.emoji-picker span:hover {
+    transform: scale(1.3);
+}
+
+/* Image jointe dans un tweet */
+.tweet-image {
+    display: block;
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 10px;
+    margin: 10px 0;
+    object-fit: cover;
+}
+
+/* @Mentions */
+a.mention {
+    color: #1d9bf0;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a.mention:hover {
+    text-decoration: underline;
+}
+
+/* Message d'erreur */
+p.erreur {
+    color: #e53935;
+    background: #ffebee;
+    border: 1px solid #e53935;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+}

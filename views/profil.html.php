@@ -38,13 +38,104 @@
     <?php if ($est_proprietaire): ?>
         <h2>Poster un tweet</h2>
         <?php if ($erreur_tweet): ?>
-            <p><?php echo htmlspecialchars($erreur_tweet); ?></p>
+            <p class="erreur"><?php echo htmlspecialchars($erreur_tweet); ?></p>
         <?php endif; ?>
-        <form method="POST">
-            <textarea name="contenu" rows="3" cols="50" maxlength="280" placeholder="Quoi de neuf ?"></textarea>
+
+        <form method="POST" enctype="multipart/form-data" class="tweet-form">
+
+            <!-- Barre d'outils -->
+            <div class="editor-toolbar">
+                <button type="button" onclick="formatText('bold')" title="Gras"><b>G</b></button>
+                <button type="button" onclick="formatText('italic')" title="Italique"><i>I</i></button>
+                <button type="button" onclick="toggleEmojiPicker()" title="Emojis">😀</button>
+            </div>
+
+            <!-- Picker d'emojis -->
+            <div id="emoji-picker" style="display:none;" class="emoji-picker">
+                <?php
+                $emojis = ['😀','😂','😍','🔥','👍','❤️','😎','🎉','💯','🤔','😢','😡','👏','🙏','✨','💪','🚀','😴','🤣','😊'];
+                foreach ($emojis as $e): ?>
+                    <span onclick="insertEmoji('<?php echo $e; ?>')"><?php echo $e; ?></span>
+                <?php endforeach; ?>
+            </div>
+
+            <textarea
+                id="tweet-editor"
+                name="contenu"
+                rows="3"
+                maxlength="280"
+                placeholder="Quoi de neuf ? Utilise @pseudo pour mentionner quelqu'un"
+            ></textarea>
+
+            <div class="editor-footer">
+                <label class="btn-upload" for="image_tweet">📎 Joindre une image</label>
+                <input type="file" id="image_tweet" name="image_tweet" accept="image/*" style="display:none"
+                    onchange="previewImage(this)">
+                <span id="char-count">280</span>
+            </div>
+
+            <!-- Prévisualisation image -->
+            <div id="image-preview" style="display:none; margin-top:8px;">
+                <img id="preview-img" src="" alt="preview" style="max-width:100%; max-height:200px; border-radius:8px;">
+                <button type="button" onclick="removeImage()" style="margin-left:8px;">✕ Retirer</button>
+            </div>
+
             <br>
             <button type="submit">Tweeter</button>
         </form>
+
+        <script>
+        // Compteur de caractères
+        document.getElementById('tweet-editor').addEventListener('input', function() {
+            document.getElementById('char-count').textContent = 280 - this.value.length;
+        });
+
+        // Gras / Italique via les marqueurs **texte** et _texte_
+        function formatText(type) {
+            const ta = document.getElementById('tweet-editor');
+            const start = ta.selectionStart;
+            const end = ta.selectionEnd;
+            const selected = ta.value.substring(start, end);
+            let result = '';
+
+            if (type === 'bold')   result = '**' + (selected || 'texte') + '**';
+            if (type === 'italic') result = '_'  + (selected || 'texte') + '_';
+
+            ta.value = ta.value.substring(0, start) + result + ta.value.substring(end);
+            ta.focus();
+        }
+
+        // Picker d'emojis
+        function toggleEmojiPicker() {
+            const p = document.getElementById('emoji-picker');
+            p.style.display = p.style.display === 'none' ? 'flex' : 'none';
+        }
+
+        function insertEmoji(emoji) {
+            const ta = document.getElementById('tweet-editor');
+            const pos = ta.selectionStart;
+            ta.value = ta.value.substring(0, pos) + emoji + ta.value.substring(pos);
+            ta.focus();
+            document.getElementById('emoji-picker').style.display = 'none';
+        }
+
+        // Prévisualisation image
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    document.getElementById('preview-img').src = e.target.result;
+                    document.getElementById('image-preview').style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function removeImage() {
+            document.getElementById('image_tweet').value = '';
+            document.getElementById('image-preview').style.display = 'none';
+        }
+        </script>
         <hr>
     <?php endif; ?>
 
@@ -92,8 +183,12 @@
                     <div class="tweet-right">
 
                         <p class="tweet-content">
-                            <?php echo nl2br(htmlspecialchars($tweet['contenu'])); ?>
+                            <?php echo formaterTweet($tweet['contenu']); ?>
                         </p>
+
+                        <?php if (!empty($tweet['image'])): ?>
+                            <img class="tweet-image" src="../uploads/<?php echo htmlspecialchars($tweet['image']); ?>" alt="image du tweet">
+                        <?php endif; ?>
 
                         <small class="tweet-date">
                             <?php echo $tweet['date_tweet']; ?>

@@ -45,15 +45,15 @@
                 <div class="tweet-right">
 
                     <p class="tweet-content">
-
-                        <?php echo nl2br(htmlspecialchars($tweet['contenu'])); ?>
-
+                        <?php echo formaterTweet($tweet['contenu']); ?>
                     </p>
 
+                    <?php if (!empty($tweet['image'])): ?>
+                        <img class="tweet-image" src="../uploads/<?php echo htmlspecialchars($tweet['image']); ?>" alt="image du tweet">
+                    <?php endif; ?>
+
                     <small class="tweet-date">
-
                         <?php echo $tweet['date_tweet']; ?>
-
                     </small>
 
                     <br><br>
